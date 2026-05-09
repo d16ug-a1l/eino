@@ -26,11 +26,14 @@ type serverConfig struct {
 	basePath       string
 	allowedOrigins []string
 	onEvent        func(context.Context, *Event) (*Event, error)
+	enableUI       bool
+	uiDir          string
 }
 
 func defaultConfig() *serverConfig {
 	return &serverConfig{
-		addr: ":8080",
+		addr:     ":8080",
+		enableUI: true,
 	}
 }
 

@@ -53,6 +53,11 @@ func (s *Server) Start(ctx context.Context) error {
 	mux.HandleFunc(p+"/resume/", s.wrapCORS(s.resumeHandler))
 	mux.HandleFunc(p+"/health", s.wrapCORS(s.healthHandler))
 
+	if s.cfg.enableUI {
+		uiHandler := s.uiHandler()
+		mux.Handle(p+"/", uiHandler)
+	}
+
 	s.httpServer = &http.Server{
 		Addr:    s.cfg.addr,
 		Handler: mux,
